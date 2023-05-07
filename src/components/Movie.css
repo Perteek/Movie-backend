@@ -1,0 +1,31 @@
+.btn-movie {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+.btn-movie.selected {
+    background-color: green;
+}
+h1 {
+    text-align: center;
+}
+
+
+
+
+.Allcontent {
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .d-flex.justify-content-end {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 12px;
+    margin-right: 12px;
+  }
