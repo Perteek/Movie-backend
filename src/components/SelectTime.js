@@ -1,5 +1,6 @@
 import React, { useState, createContext } from 'react';
 import Allcontent from './Allcontent';
+import { useSelector,useDispatch } from 'react-redux';
 
 export const TimeSlotContext = createContext();
 
@@ -8,8 +9,12 @@ function SelectTime(props) {
 
   const handleSelect = (event) => {
     setSelectedTimeSlot(event.target.value);
+    dispatch({ type: 'Time', payload: event.target.value });
   };
 
+  const dispatch=useDispatch()
+  
+  
   return (
     <TimeSlotContext.Provider value={selectedTimeSlot}>
       <div className="container" style={{textAlign:"left", width:"1331px"}}>

@@ -10,20 +10,19 @@ const movieSchema = new Schema({
   timeSlot: {
       Slot1: {
         type: String,
-        default: "08:00 AM"
+        // default: "08:00 AM"
       },
       Slot2: {
         type: String,
-        default: "11:00 AM"
+        // default: "11:00 AM"
       },
       Slot3: {
         type: String,
-        default: "01:00 PM"
+        // default: "01:00 PM"
       },
       Slot4: {
         type: String,
-        default: "12:00 PM"
-      },
+      }
   },
   seats: {
     type: {

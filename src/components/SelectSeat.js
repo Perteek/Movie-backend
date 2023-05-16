@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
 function SelectSeat() {
   const [selectedSeats, setSelectedSeats] = useState({
@@ -9,13 +10,27 @@ function SelectSeat() {
     A5: 0,
   });
 
+  const dispatch = useDispatch();
+
   const handleSelectSeat = (event, seatType) => {
     const value = event.target.value;
-    setSelectedSeats((prevSeats) => ({
-      ...prevSeats,
-      [seatType]: value,
-    }));
+    setSelectedSeats((prevSeats) => {
+      const updatedSeats = {
+        ...prevSeats,
+        [seatType]: value,
+      };
+  
+      dispatch({ type: "slot1", payload: updatedSeats.A1 });
+      dispatch({ type: "slot2", payload: updatedSeats.A2 });
+      dispatch({ type: "slot3", payload: updatedSeats.A3 });
+      dispatch({ type: "slot4", payload: updatedSeats.A4 });
+      dispatch({ type: "slot5", payload: updatedSeats.D1 });
+      dispatch({ type: "slot6", payload: updatedSeats.D2 });
+  
+      return updatedSeats;
+    });
   };
+  
 
   return (
     <div className="container" style={{textAlign:"left",width:"1331px"}}>
@@ -24,7 +39,7 @@ function SelectSeat() {
           <div className="border border-dark p-4" style={{borderRadius:"7px"}}>
           <h6 className="text-start" style={{color:'grey'}}>Select a Seat</h6>
 
-          {`${selectedSeats.A1} ,${selectedSeats.A2} ,${selectedSeats.A3} ,${selectedSeats.A4} ,${selectedSeats.D1} ,${selectedSeats.D2}` }
+          {/* {`${selectedSeats.A1} ,${selectedSeats.A2} ,${selectedSeats.A3} ,${selectedSeats.A4} ,${selectedSeats.D1} ,${selectedSeats.D2}` } */}
             <div className="btn-group">
               <button
                 type="button"

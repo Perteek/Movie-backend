@@ -17,6 +17,7 @@ function MovieSelector() {
       const { movie } = response.data;
       const timeSlot = movie.timeSlot;
       setTimeSlots(timeSlot);
+      console.log(timeSlot)
     } catch (error) {
       console.error(error);
     }

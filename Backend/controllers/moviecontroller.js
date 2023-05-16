@@ -65,8 +65,9 @@ exports.bookamovie=catchasyncerror(async(req,res,next)=>{
 
 exports.getTimeSlot = catchasyncerror(async (req, res, next) => {
     const { movieName } = req.params;
-    const movie = await Movie.findOne({ movieName });
-
+    console.log(movieName)
+    const movie = await Movie.findOne({movieName:movieName});
+    console.log(movie)
     if (!movie) {
         return next(new Errorhandler("Movie not found", 404));
     }

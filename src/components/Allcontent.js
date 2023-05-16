@@ -7,6 +7,7 @@ import LastBooking from './LastBooking'
 import { useLocation } from 'react-router-dom'
 // import { TimeSlotContext } from './SelectTime'
 import { TimeSlotContext } from './TimeSlotContext'
+import { useSelector,useDispatch } from 'react-redux'
 // import {Timevalue} from "../App"
 const Allcontent = (props) => {
   const [seat, setSeat] = useState(null);
@@ -21,6 +22,7 @@ const Allcontent = (props) => {
   const [timeSlot,setTimeSlot]=useState(null)
   const [bookingdone,setbookingdone]=useState("")
 
+  const {Time, renderTime,slot1,slot2,slot3,slot4,slot5,slot6}=useSelector(state => state.custom)
   // const { timeslot: selectedTimeSlot } = useContext(TimeSlotContext);
   // const [stateSelectedTimeSlot, setStateSelectedTimeSlot] = useState(selectedTimeSlot);
   // const timeslot = selectedTimeSlot ? selectedTimeSlot.timeslot : null;
@@ -32,7 +34,7 @@ const Allcontent = (props) => {
   // }, [selectedTimeSlot]);
 
   console.log(props.movieName)
-  const  a =useContext(TimeSlotContext)
+  const dispatch=useDispatch()
   // const moviename=props.movieName
   // const selectedTimeSlot = useContext(TimeSlotContext);
   const PostBooking = async (movie) => {
@@ -40,15 +42,15 @@ const Allcontent = (props) => {
       const response1 = await axios.post('http://localhost:3000/api/v1/bookmovie', {
         movieName: `${props.movieName}`,
         timeSlot: {
-          Slot: "10:00 AM" 
+          Slot: Time
         },
         seats: {
-          type1A1: 10,
-          typeA2: 0,
-          typeA3: 10,
-          typeA4: 10,
-          typeD1: 2,
-          typeD2: 10
+          type1A1: slot1,
+          typeA2:slot2,
+          typeA3: slot3,
+          typeA4: slot4,
+          typeD1:slot5,
+          typeD2: slot6
         }
       });
 
@@ -78,7 +80,7 @@ const Allcontent = (props) => {
       setBookMovies(bookmovies);
       setmovieName(movieName);
       setTimeSlot(timeSlot)
-
+      dispatch({ type: 'renderTime', payload: false });
       console.log(typeD2)
       console.log(seat)
       console.log(timeSlot)
@@ -93,12 +95,19 @@ const Allcontent = (props) => {
 
   return (
     <>
-    {/* <h1>helllo {timeSlot}</h1> */}
-    {/* <h1>hello this is {props.movieName} and this is time{a}</h1> */}
+    {/* <h1>helllo {Time} </h1>
+    <h1> this is {renderTime}</h1>
+    <h1> this is 1({slot1}</h1>
+    <h1> this is 2({slot2}</h1>
+    <h1> this is 3({slot3}</h1>
+    <h1> this is 4({slot4}</h1>
+    <h1> this is 5({slot5}</h1>
+    <h1> this is 6({slot6}</h1>
+    <h1>hello this is {props.movieName} and this is time{a}</h1> */}
         <SelectSeat />
-        <button type="button" className="btn btn-success" style={{ float: 'left', marginLeft: "12px", marginTop: "12px", background: "linear-gradient(to right, #1CB5E0, #000046)" }} onClick={PostBooking}>Book now</button>
+        {renderTime && <button type="button" className="btn btn-success" style={{ float: 'left', marginLeft: "12px", marginTop: "12px", background: "linear-gradient(to right, #1CB5E0, #000046)" }} onClick={PostBooking}>Book now</button>}
         <div className="d-flex justify-content-end" >
-          {bookmovies && <LastBooking Seats={seat} A1={typeA1} A2={typeA2} A3={typeA3} A4={typeA4} D1={typeD1} D2={typeD2} Slot={timeSlot} Movie={movieName} />}
+          {bookmovies && <LastBooking Seats={seat} A1={typeA1} A2={typeA2} A3={typeA3} A4={typeA4} D1={typeD1} D2={typeD2} Slot={Time} Movie={movieName} />}
         </div>
     </>
   );
